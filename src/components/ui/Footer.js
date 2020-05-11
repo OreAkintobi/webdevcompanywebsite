@@ -76,7 +76,7 @@ export default function Footer({
   const services = [
     { text: "Services", route: "/services", index: 0 },
     { text: "Custom Software Development", route: "/customsoftware", index: 1 },
-    { text: "Mobile App Development", route: "/mobileapps", index: 2 },
+    { text: "iOS/Android Development", route: "/mobileapps", index: 2 },
     { text: "Website Development", route: "/websites", index: 3 },
   ];
 
