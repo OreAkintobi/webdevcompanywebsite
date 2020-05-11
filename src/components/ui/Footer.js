@@ -65,6 +65,23 @@ export default function Footer({
 }) {
   const classes = useStyles();
 
+  const socialIcons = [
+    { href: "http://www.facebook.com", alt: "facebook", src: facebook },
+    { href: "http://www.twitter.com", alt: "twitter", src: twitter },
+    { href: "http://www.instagram.com", alt: "instagram", src: instagram },
+  ];
+
+  const revolution = ["The Revolution", "Vision", "Technology", "Process"];
+
+  const services = [
+    { text: "Services", route: "/services", index: 0 },
+    { text: "Custom Software Development", route: "/customsoftware", index: 1 },
+    { text: "Mobile App Development", route: "/mobileapps", index: 2 },
+    { text: "Website Development", route: "/websites", index: 3 },
+  ];
+
+  const about = ["About Us", "History", "Team"];
+
   return (
     <footer className={classes.footer}>
       <Hidden mdDown>
@@ -84,125 +101,53 @@ export default function Footer({
           </Grid>
           <Grid item className={classes.gridItem}>
             <Grid container direction="column" spacing={2}>
-              <Grid
-                item
-                component={Link}
-                to="/services"
-                className={classes.link}
-                onClick={() => {
-                  setValue(1);
-                  setSelectedIndex(0);
-                }}
-              >
-                Services
-              </Grid>
-              <Grid
-                item
-                component={Link}
-                to="customsoftware"
-                className={classes.link}
-                onClick={() => {
-                  setValue(1);
-                  setSelectedIndex(1);
-                }}
-              >
-                Custom Software Development
-              </Grid>
-              <Grid
-                item
-                component={Link}
-                to="/mobileapps"
-                className={classes.link}
-                onClick={() => {
-                  setValue(1);
-                  setSelectedIndex(2);
-                }}
-              >
-                Mobile App Development
-              </Grid>
-              <Grid
-                item
-                component={Link}
-                to="/websites"
-                className={classes.link}
-                onClick={() => {
-                  setValue(1);
-                  setSelectedIndex(3);
-                }}
-              >
-                Website Development
-              </Grid>
+              {services.map((service, index) => (
+                <Grid
+                  item
+                  key={index}
+                  component={Link}
+                  to={service.route}
+                  className={classes.link}
+                  onClick={() => {
+                    setValue(1);
+                    setSelectedIndex(service.index);
+                  }}
+                >
+                  {service.text}
+                </Grid>
+              ))}
             </Grid>
           </Grid>
           <Grid item className={classes.gridItem}>
             <Grid container direction="column" spacing={2}>
-              <Grid
-                item
-                component={Link}
-                to="/revolution"
-                className={classes.link}
-                onClick={() => setValue(2)}
-              >
-                The Revolution
-              </Grid>
-              <Grid
-                item
-                component={Link}
-                to="/revolution"
-                className={classes.link}
-                onClick={() => setValue(2)}
-              >
-                Vision
-              </Grid>
-              <Grid
-                item
-                component={Link}
-                to="/revolution"
-                className={classes.link}
-                onClick={() => setValue(2)}
-              >
-                Technology
-              </Grid>
-              <Grid
-                item
-                component={Link}
-                to="/revolution"
-                className={classes.link}
-                onClick={() => setValue(2)}
-              >
-                Process
-              </Grid>
+              {revolution.map((text, index) => (
+                <Grid
+                  item
+                  key={index}
+                  component={Link}
+                  to="/revolution"
+                  className={classes.link}
+                  onClick={() => setValue(2)}
+                >
+                  {text}
+                </Grid>
+              ))}
             </Grid>
           </Grid>
           <Grid item className={classes.gridItem}>
             <Grid container direction="column" spacing={2}>
-              <Grid
-                item
-                component={Link}
-                to="/about"
-                className={classes.link}
-                onClick={() => setValue(3)}
-              >
-                About Us
-              </Grid>
-              <Grid
-                item
-                component={Link}
-                to="/about"
-                className={classes.link}
-                onClick={() => setValue(3)}
-              >
-                History
-              </Grid>
-              <Grid
-                item
-                component={Link}
-                to="/about"
-                className={classes.link}
-                onClick={() => setValue(3)}
-              >
-                Team
-              </Grid>
+              {about.map((item, index) => (
+                <Grid
+                  item
+                  key={index}
+                  component={Link}
+                  to="/about"
+                  className={classes.link}
+                  onClick={() => setValue(3)}
+                >
+                  {item}
+                </Grid>
+              ))}
             </Grid>
           </Grid>
           <Grid item className={classes.gridItem}>
@@ -231,33 +176,18 @@ export default function Footer({
         justify="flex-end"
         spacing={2}
       >
-        <Grid
-          item
-          component={"a"}
-          href="http://www.facebook.com"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          <img alt="facebook" src={facebook} className={classes.icon} />
-        </Grid>
-        <Grid
-          item
-          component={"a"}
-          href="http://www.twitter.com"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          <img alt="twitter" src={twitter} className={classes.icon} />
-        </Grid>
-        <Grid
-          item
-          component={"a"}
-          href="http://www.instagram.com"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          <img alt="instagram" src={instagram} className={classes.icon} />
-        </Grid>
+        {socialIcons.map((icon, index) => (
+          <Grid
+            item
+            key={index}
+            component={"a"}
+            href={icon.href}
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img alt={icon.alt} src={icon.src} className={classes.icon} />
+          </Grid>
+        ))}
       </Grid>
     </footer>
   );
