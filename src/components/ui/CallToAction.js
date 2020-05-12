@@ -1,6 +1,7 @@
 import React from "react";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
+import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import ButtonArrow from "./ButtonArrow";
 import Typography from "@material-ui/core/Typography";
@@ -45,10 +46,13 @@ const useStyles = makeStyles((theme) => ({
       marginRight: 0,
       marginLeft: 0,
     },
+    "&:hover": {
+      backgroundColor: theme.palette.secondary.light,
+    },
   },
 }));
 
-const CallToAction = () => {
+const CallToAction = ({ setValue }) => {
   const classes = useStyles();
   const theme = useTheme();
   const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
@@ -60,7 +64,6 @@ const CallToAction = () => {
       justify={matchesSM ? "center" : "space-between"}
       className={classes.background}
       direction={matchesSM ? "column" : "row"}
-      spacing={matchesSM ? 10 : 0}
     >
       <Grid
         item
@@ -80,7 +83,15 @@ const CallToAction = () => {
               Take advantage of the 21st Century
             </Typography>
             <Grid container item justify={matchesSM ? "center" : undefined}>
-              <Button variant="outlined" className={classes.learnButton}>
+              <Button
+                component={Link}
+                to="/revolution"
+                variant="outlined"
+                className={classes.learnButton}
+                onClick={() => {
+                  setValue(2);
+                }}
+              >
                 <span style={{ marginRight: 5 }}>Learn More</span>
                 <ButtonArrow
                   width={10}
@@ -93,7 +104,16 @@ const CallToAction = () => {
         </Grid>
       </Grid>
       <Grid item>
-        <Button variant="container" className={classes.estimateButton}>
+        <Button
+          component={Link}
+          to="/estimate"
+          variant="container"
+          className={classes.estimateButton}
+          style={{ marginTop: matchesSM ? "3em" : 0 }}
+          onClick={() => {
+            setValue(5);
+          }}
+        >
           Free Estimate
         </Button>
       </Grid>
