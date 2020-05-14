@@ -262,6 +262,7 @@ export default function Header({
             component={Link}
             to={option.link}
             classes={{ root: classes.menuItem }}
+            style={{ color: "white" }}
           >
             {option.name}
           </MenuItem>

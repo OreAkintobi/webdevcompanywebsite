@@ -7,14 +7,15 @@ const arcGrey = "#868686";
 export default createMuiTheme({
   palette: {
     common: {
-      blue: `${arcBlue}`,
-      orange: `${arcOrange}`,
+      blue: arcBlue,
+      orange: arcOrange,
+      grey: arcGrey,
     },
     primary: {
-      main: `${arcBlue}`,
+      main: arcBlue,
     },
     secondary: {
-      main: `${arcOrange}`,
+      main: arcOrange,
     },
   },
   typography: {
@@ -33,33 +34,38 @@ export default createMuiTheme({
       fontFamily: "Raleway",
       fontWeight: 700,
       fontSize: "2.5rem",
-      color: `${arcBlue}`,
+      color: arcBlue,
       lineHeight: 1.5,
     },
     h3: {
       fontFamily: "Pacifico",
       fontSize: "2.5rem",
-      color: `${arcBlue}`,
+      color: arcBlue,
     },
     h4: {
       fontFamily: "Raleway",
       fontWeight: 700,
       fontSize: "1.75rem",
-      color: `${arcBlue}`,
+      color: arcBlue,
     },
     subtitle1: {
       fontWeight: 300,
       fontSize: "1.25rem",
-      color: `${arcGrey}`,
+      color: arcGrey,
     },
     subtitle2: {
       fontWeight: 300,
       fontSize: "1.25rem",
       color: "white",
     },
+    body1: {
+      fontSize: "1.25rem",
+      color: arcGrey,
+      fontWeight: 300,
+    },
     learnButton: {
-      borderColor: `${arcBlue}`,
-      color: `${arcBlue}`,
+      borderColor: arcBlue,
+      color: arcBlue,
       borderWidth: 2,
       textTransform: "none",
       borderRadius: 50,

@@ -125,12 +125,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const LandingPage = (props) => {
+const LandingPage = ({ setValue, setSelectedIndex }) => {
   const classes = useStyles();
   const theme = useTheme();
   const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
   const matchesXS = useMediaQuery(theme.breakpoints.down("xs"));
-  const { setValue, setSelectedIndex } = props;
 
   const defaultOptions = {
     loop: true,
