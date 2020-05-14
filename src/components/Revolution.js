@@ -31,12 +31,6 @@ const useStyles = makeStyles((theme) => ({
       paddingRight: "1.5em",
     },
   },
-  itemContainer: {
-    maxWidth: "40em",
-  },
-  paragraphContainer: {
-    maxWidth: "30em",
-  },
 }));
 
 const Revolution = () => {
