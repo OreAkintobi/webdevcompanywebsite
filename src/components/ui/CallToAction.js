@@ -107,7 +107,7 @@ const CallToAction = ({ setValue }) => {
         <Button
           component={Link}
           to="/estimate"
-          variant="container"
+          variant="contained"
           className={classes.estimateButton}
           style={{ marginTop: matchesSM ? "3em" : 0 }}
           onClick={() => {

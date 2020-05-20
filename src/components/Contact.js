@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
@@ -93,6 +94,10 @@ const Contact = ({ setValue }) => {
 
   const [open, setOpen] = useState(false);
 
+  const matchesXS = useMediaQuery(theme.breakpoints.down("xs"));
+  const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
+  const matchesMD = useMediaQuery(theme.breakpoints.down("md"));
+
   const onChange = (event) => {
     let valid;
 
@@ -108,7 +113,6 @@ const Contact = ({ setValue }) => {
         } else {
           setEmailHelper("");
         }
-
         break;
 
       case "phone":
@@ -120,7 +124,6 @@ const Contact = ({ setValue }) => {
         } else {
           setPhoneHelper("");
         }
-
         break;
 
       default:
@@ -128,9 +131,12 @@ const Contact = ({ setValue }) => {
     }
   };
 
-  const matchesXS = useMediaQuery(theme.breakpoints.down("xs"));
-  const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
-  const matchesMD = useMediaQuery(theme.breakpoints.down("md"));
+  const onConfirm = () => {
+    axios
+      .get("https://us-central1-webdevcowebsite.cloudfunctions.net/sendMail")
+      .then((res) => console.log(res))
+      .catch((error) => console.log(error));
+  };
 
   return (
     <Grid container direction="row">
@@ -404,9 +410,7 @@ const Contact = ({ setValue }) => {
                 }
                 variant="contained"
                 className={classes.sendButton}
-                onClick={() => {
-                  setOpen(true);
-                }}
+                onClick={onConfirm}
               >
                 Send Message
                 <img
@@ -477,7 +481,7 @@ const Contact = ({ setValue }) => {
           <Button
             component={Link}
             to="/estimate"
-            variant="container"
+            variant="contained"
             className={classes.estimateButton}
             style={{ marginTop: matchesSM ? "3em" : 0 }}
             onClick={() => {
