@@ -3,6 +3,7 @@ import { createMuiTheme } from "@material-ui/core/styles";
 const arcBlue = "#0B72B9";
 const arcOrange = "#FFBA60";
 const arcGrey = "#868686";
+const black = "#000000";
 
 export default createMuiTheme({
   palette: {
@@ -10,6 +11,7 @@ export default createMuiTheme({
       blue: arcBlue,
       orange: arcOrange,
       grey: arcGrey,
+      black,
     },
     primary: {
       main: arcBlue,
@@ -76,6 +78,28 @@ export default createMuiTheme({
       fontSize: "1rem",
       fontWeight: 300,
       color: arcGrey,
+    },
+  },
+  overrides: {
+    MuiInputLabel: {
+      root: {
+        color: arcBlue,
+        fontSize: "1rem",
+      },
+    },
+    MuiInput: {
+      root: {
+        color: arcGrey,
+        fontWeight: 300,
+      },
+      underline: {
+        "&:before": {
+          borderBottom: `2px solid ${arcBlue}`,
+        },
+        "&:hover:not($disabled):not($focused):not($error):before": {
+          borderBottom: `2px solid ${arcBlue}`,
+        },
+      },
     },
   },
 });
