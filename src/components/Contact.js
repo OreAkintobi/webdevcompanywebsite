@@ -10,6 +10,7 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import Snackbar from "@material-ui/core/Snackbar";
 
 import ButtonArrow from "./ui/ButtonArrow";
 
@@ -97,6 +98,12 @@ const Contact = ({ setValue }) => {
 
   const [loading, setLoading] = useState(false);
 
+  const [alert, setAlert] = useState({
+    open: false,
+    message: "",
+    backgroundColor: "",
+  });
+
   const matchesXS = useMediaQuery(theme.breakpoints.down("xs"));
   const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
   const matchesMD = useMediaQuery(theme.breakpoints.down("md"));
@@ -137,7 +144,14 @@ const Contact = ({ setValue }) => {
   const onConfirm = () => {
     setLoading(true);
     axios
-      .get("https://us-central1-webdevcowebsite.cloudfunctions.net/sendMail")
+      .get("https://us-central1-webdevcowebsite.cloudfunctions.net/sendMail", {
+        params: {
+          name: name,
+          email: email,
+          phone: phone,
+          message: message,
+        },
+      })
       .then((res) => {
         setLoading(false);
         setOpen(false);
@@ -145,9 +159,19 @@ const Contact = ({ setValue }) => {
         setEmail("");
         setPhone("");
         setMessage("");
+        setAlert({
+          open: true,
+          message: "Message sent successfully",
+          backgroundColor: "#4BB543",
+        });
       })
       .catch((error) => {
         setLoading(false);
+        setAlert({
+          open: true,
+          message: "Something went wrong. Please try again",
+          backgroundColor: "#FF3232",
+        });
       });
   };
 
@@ -433,6 +457,15 @@ const Contact = ({ setValue }) => {
           </Grid>
         </DialogContent>
       </Dialog>
+
+      <Snackbar
+        open={alert.open}
+        message={alert.message}
+        ContentProps={{ style: { backgroundColor: alert.backgroundColor } }}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        onClose={() => setAlert({ ...alert, open: false })}
+        autoHideDuration={4000}
+      />
 
       <Grid
         item
