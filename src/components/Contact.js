@@ -75,9 +75,49 @@ const Contact = ({ setValue }) => {
   const theme = useTheme();
 
   const [name, setName] = useState("");
+
   const [email, setEmail] = useState("");
+  const [emailHelper, setEmailHelper] = useState("");
+
   const [phone, setPhone] = useState("");
+  const [phoneHelper, setPhoneHelper] = useState("");
+
   const [message, setMessage] = useState("");
+
+  const onChange = (event) => {
+    let valid;
+
+    switch (event.target.id) {
+      case "email":
+        setEmail(event.target.value);
+        valid = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(
+          event.target.value
+        );
+
+        if (!valid) {
+          setEmailHelper("Invalid email");
+        } else {
+          setEmailHelper("");
+        }
+
+        break;
+
+      case "phone":
+        setPhone(event.target.value);
+        valid = /^\+[0-9]?()[0-9](\s|\S)(\d[0-9]{9})$/.test(event.target.value);
+
+        if (!valid) {
+          setPhoneHelper("Invalid phone");
+        } else {
+          setPhoneHelper("");
+        }
+
+        break;
+
+      default:
+        break;
+    }
+  };
 
   const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
   const matchesMD = useMediaQuery(theme.breakpoints.down("md"));
@@ -115,6 +155,7 @@ const Contact = ({ setValue }) => {
                 We're waiting.
               </Typography>
             </Grid>
+
             <Grid item container style={{ marginTop: "2em" }}>
               <Grid item>
                 <img
@@ -128,10 +169,16 @@ const Contact = ({ setValue }) => {
                   variant="body1"
                   style={{ color: theme.palette.common.blue, fontSize: "1em" }}
                 >
-                  +234-818-124-8830
+                  <a
+                    style={{ textDecoration: "none", color: "inherit" }}
+                    href="tel:+234-818-124-8830"
+                  >
+                    +234-818-124-8830
+                  </a>
                 </Typography>
               </Grid>
             </Grid>
+
             <Grid item container style={{ marginBottom: "2em" }}>
               <Grid item>
                 <img
@@ -145,10 +192,16 @@ const Contact = ({ setValue }) => {
                   variant="body1"
                   style={{ color: theme.palette.common.blue, fontSize: "1em" }}
                 >
-                  oreakintobi@gmail.com
+                  <a
+                    style={{ textDecoration: "none", color: "inherit" }}
+                    href="mailto:oreakintobi@gmail.com"
+                  >
+                    oreakintobi@gmail.com
+                  </a>
                 </Typography>
               </Grid>
             </Grid>
+
             <Grid
               item
               container
@@ -164,25 +217,32 @@ const Contact = ({ setValue }) => {
                   onChange={(event) => setName(event.target.value)}
                 />
               </Grid>
+
               <Grid item style={{ marginBottom: "0.5em" }}>
                 <TextField
                   label="Email"
+                  error={emailHelper.length !== 0}
+                  helperText={emailHelper}
                   id="email"
                   value={email}
                   fullWidth
-                  onChange={(event) => setEmail(event.target.value)}
+                  onChange={onChange}
                 />
               </Grid>
+
               <Grid item style={{ marginBottom: "0.5em" }}>
                 <TextField
-                  label="Phone"
+                  label="Phone (with area code e.g. '+44')"
+                  error={phoneHelper.length !== 0}
+                  helperText={phoneHelper}
                   id="phone"
                   value={phone}
                   fullWidth
-                  onChange={(event) => setPhone(event.target.value)}
+                  onChange={onChange}
                 />
               </Grid>
             </Grid>
+
             <Grid item style={{ maxWidth: "20em" }}>
               <TextField
                 InputProps={{ disableUnderline: true }}
@@ -195,8 +255,18 @@ const Contact = ({ setValue }) => {
                 onChange={(event) => setMessage(event.target.value)}
               />
             </Grid>
+
             <Grid item container justify="center" style={{ marginTop: "2em" }}>
-              <Button variant="contained" className={classes.sendButton}>
+              <Button
+                disabled={
+                  name.length === 0 ||
+                  message.length === 0 ||
+                  phoneHelper.length !== 0 ||
+                  emailHelper.length !== 0
+                }
+                variant="contained"
+                className={classes.sendButton}
+              >
                 Send Message
                 <img
                   src={airplane}
