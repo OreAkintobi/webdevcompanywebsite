@@ -9,6 +9,7 @@ import TextField from "@material-ui/core/TextField";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 import ButtonArrow from "./ui/ButtonArrow";
 
@@ -94,6 +95,8 @@ const Contact = ({ setValue }) => {
 
   const [open, setOpen] = useState(false);
 
+  const [loading, setLoading] = useState(false);
+
   const matchesXS = useMediaQuery(theme.breakpoints.down("xs"));
   const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
   const matchesMD = useMediaQuery(theme.breakpoints.down("md"));
@@ -132,11 +135,28 @@ const Contact = ({ setValue }) => {
   };
 
   const onConfirm = () => {
+    setLoading(true);
     axios
       .get("https://us-central1-webdevcowebsite.cloudfunctions.net/sendMail")
-      .then((res) => console.log(res))
-      .catch((error) => console.log(error));
+      .then((res) => {
+        setLoading(false);
+        setOpen(false);
+        setName("");
+        setEmail("");
+        setPhone("");
+        setMessage("");
+      })
+      .catch((error) => {
+        setLoading(false);
+      });
   };
+
+  const buttonContents = (
+    <React.Fragment>
+      Send Message
+      <img src={airplane} alt="paper airplane" style={{ marginLeft: "1em" }} />
+    </React.Fragment>
+  );
 
   return (
     <Grid container direction="row">
@@ -286,12 +306,7 @@ const Contact = ({ setValue }) => {
                   setOpen(true);
                 }}
               >
-                Send Message
-                <img
-                  src={airplane}
-                  alt="paper airplane"
-                  style={{ marginLeft: "1em" }}
-                />
+                {buttonContents}
               </Button>
             </Grid>
           </Grid>
@@ -412,12 +427,7 @@ const Contact = ({ setValue }) => {
                 className={classes.sendButton}
                 onClick={onConfirm}
               >
-                Send Message
-                <img
-                  src={airplane}
-                  alt="paper airplane"
-                  style={{ marginLeft: "1em" }}
-                />
+                {loading ? <CircularProgress size={30} /> : buttonContents}
               </Button>
             </Grid>
           </Grid>
