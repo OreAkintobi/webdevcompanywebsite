@@ -262,12 +262,7 @@ const Contact = ({ setValue }) => {
               </Grid>
             </Grid>
 
-            <Grid
-              item
-              container
-              direction="column"
-              style={{ maxWidth: "20em" }}
-            >
+            <Grid item container direction="column" style={{ width: "20em" }}>
               <Grid item style={{ marginBottom: "0.5em" }}>
                 <TextField
                   label="Name"
@@ -303,7 +298,7 @@ const Contact = ({ setValue }) => {
               </Grid>
             </Grid>
 
-            <Grid item style={{ maxWidth: "20em" }}>
+            <Grid item style={{ width: "20em" }}>
               <TextField
                 InputProps={{ disableUnderline: true }}
                 value={message}
@@ -340,7 +335,7 @@ const Contact = ({ setValue }) => {
       <Dialog
         style={{ zIndex: 1302 }}
         open={open}
-        fullScreen={matchesXS}
+        fullScreen={matchesSM}
         onClose={() => {
           setOpen(false);
         }}
@@ -406,7 +401,7 @@ const Contact = ({ setValue }) => {
               />
             </Grid>
 
-            <Grid item style={{ maxWidth: matchesXS ? "100%" : "20em" }}>
+            <Grid item style={{ width: matchesSM ? "100%" : "20em" }}>
               <TextField
                 InputProps={{ disableUnderline: true }}
                 value={message}
