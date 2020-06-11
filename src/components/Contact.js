@@ -403,6 +403,7 @@ const Contact = ({ setValue }) => {
 
             <Grid item style={{ width: matchesSM ? "100%" : "20em" }}>
               <TextField
+                placeholder="Tell us more about your project"
                 InputProps={{ disableUnderline: true }}
                 value={message}
                 fullWidth
