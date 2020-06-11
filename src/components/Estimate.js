@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { cloneDeep } from "lodash";
 import Lottie from "react-lottie";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
@@ -589,6 +590,31 @@ const Estimate = () => {
     }
   };
 
+  const sendEstimate = () => {
+    axios
+      .get("https://us-central1-webdevcowebsite.cloudfunctions.net/sendMail", {
+        params: {
+          name: name,
+          email: email,
+          phone: phone,
+          message: message,
+          total: total,
+          category: category,
+          service: service,
+          platforms: platforms,
+          features: features,
+          customFeatures: customFeatures,
+          users: users,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
   const softwareSelection = (
     <Grid container direction="column">
       <Grid
@@ -774,6 +800,7 @@ const Estimate = () => {
               <Grid item container>
                 {question.options.map((option) => (
                   <Grid
+                    key={option.title}
                     item
                     container
                     direction="column"
@@ -983,7 +1010,11 @@ const Estimate = () => {
               </Hidden>
 
               <Grid item>
-                <Button variant="contained" className={classes.estimateButton}>
+                <Button
+                  variant="contained"
+                  className={classes.estimateButton}
+                  onClick={sendEstimate}
+                >
                   Place Request{" "}
                   <img
                     src={send}
